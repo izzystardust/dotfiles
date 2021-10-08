@@ -39,4 +39,10 @@ brew "vips"
 EOF
 {{ end }}
 
+# Set up vim-plug and install vim plugins
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+nvim +PlugInstall +qa
+
 # vim:ft=sh
