@@ -1,0 +1,7 @@
+README.md
+
+{{- if ne .chezmoi.hostname "singapura" }}
+# Work-computer specific files
+.config/zsh/.zshrc.cond.d/singapura.zsh
+.config/zsh/.zshrc.d/node.zsh
+{{- end }}

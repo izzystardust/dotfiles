@@ -1,0 +1,7 @@
+if [[ -n $(command ls $@) ]]
+then
+	command ls $@
+else
+	command ls -A $@
+fi
+# vim: ft=zsh

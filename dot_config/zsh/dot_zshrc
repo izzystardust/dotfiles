@@ -1,0 +1,42 @@
+# autoload functions
+function autoload_funcdir {
+  if [[ ! -d "$1" ]]; then
+    >&2 echo "Function directory not found: $1" && return 1
+  fi
+  fpath=("$1" $fpath)
+  local fn; for fn in "$1"/*(.N); do
+    autoload -Uz "$fn"
+  done
+}
+
+fndirs=(
+  ${ZDOTDIR:-$HOME}/.zfunctions
+  ${ZDOTDIR:-$HOME}/.zfunctions/*/(N)
+)
+for d in $fndirs; do
+  [[ -d $d ]] || continue
+  autoload_funcdir "$d"
+done
+unset fndirs d
+
+# source all scripts in a config dir
+function src_confd {
+  local files=("$1"/*.{sh,zsh}(.N))
+  local f; for f in ${(o)files}; do
+    # ignore files that begin with a tilde
+    case ${f:t} in '~'*) continue;; esac
+    source "$f"
+  done
+}
+
+() {
+  src_confd $ZDOTDIR/.zshrc.cond.d
+  src_confd $ZDOTDIR/.zshrc.d
+}
+
+autoload -Uz compinit
+for dump in ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24); do
+  echo Initializing completions
+  compinit
+done
+compinit -C

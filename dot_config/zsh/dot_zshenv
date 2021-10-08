@@ -1,0 +1,52 @@
+export ZDOTDIR=$HOME/.config/zsh
+
+# Ensure path arrays have linked array/scalar names and do not contain duplicates.
+typeset -gT CPATH cpath
+typeset -gU path PATH cpath CPATH
+
+# On macOS, the default zsh profile calls /usr/libexec/path_helper and is sourced
+# after ~/.zshenv, which will reorder the path... paths in /etc/paths will be first.
+# If command shadowing is needed, set via /etc/paths, otherwise, add to /etc/paths.d
+
+export cpath=(
+  `xcrun --show-sdk-path`/usr/include
+)
+
+
+export GOPATH=$HOME/src
+
+# Set XDG dirs
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export XDG_RUNTIME_DIR=~/.xdg
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export XDG_DESKTOP_DIR=~/Desktop
+  export XDG_DOCUMENTS_DIR=~/Documents
+  export XDG_DOWNLOAD_DIR=~/Downloads
+  export XDG_MUSIC_DIR=~/Music
+  export XDG_PICTURES_DIR=~/Pictures
+  export XDG_VIDEOS_DIR=~/Videos
+fi
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+export BROWSER='open'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Set the default Less options.
+# F: exit automatically if less than one screen of output
+# g: only highlight next match in search
+# i: case-insensitive search
+# M: extra verbose prompt
+# R: Output raw control characters for ANSI colors, but format other chars
+# S: Chop long lines instead of wrapping
+# Z-4: 4 line scrolloff on page up/down
+export LESS='-F -g -i -M -R -S -z-4'
+
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi
+
