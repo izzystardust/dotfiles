@@ -30,13 +30,12 @@ function src_confd {
 }
 
 () {
-  src_confd $ZDOTDIR/.zshrc.cond.d
   src_confd $ZDOTDIR/.zshrc.d
 }
 
 autoload -Uz compinit
 for dump in ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24); do
-  echo Initializing completions
+  # Runs once per day
   compinit
 done
 compinit -C

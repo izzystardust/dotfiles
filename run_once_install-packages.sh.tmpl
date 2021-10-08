@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+{{ if eq .chezmoi.os "darwin" -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/services"
+brew "bat"
+brew "cowsay"
+brew "fortune"
+brew "fzf"
+brew "git"
+brew "go"
+brew "less"
+brew "micro"
+brew "neovim"
+brew "python"
+brew "ripgrep"
+brew "rust"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "z"
+brew "zsh-completions"
+{{ if eq .chezmoi.hostname "singapura" -}}
+brew "cairo"
+brew "gcc"
+brew "gh"
+brew "gmp"
+brew "jpeg"
+brew "libmemcached"
+brew "memcached"
+brew "node"
+brew "postgresql@9.6", restart_service: true
+brew "redis"
+brew "vips"
+{{end}}
+EOF
+{{ end }}
+
+# vim:ft=sh
