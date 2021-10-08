@@ -1,6 +1,8 @@
 export path=($HOME/bin $path)
 
 {{ if eq .chezmoi.os "darwin" }}
+export path=(/opt/homebrew/bin $path)
+
 if [[ ! $(type brew) ]]; then
     echo "Uh oh! Homebrew isn't in the PATH!"
     exit 1
