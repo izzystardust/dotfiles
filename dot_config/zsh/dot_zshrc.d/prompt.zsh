@@ -13,18 +13,16 @@ add-zsh-hook precmd prompt_izzy_precmd
 # Use extended color pallete if available.
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_izzy_colors=(
-    "%F{81}"  # Turquoise
-    "%F{166}" # Orange
-    "%F{135}" # Purple
-    "%F{161}" # Hotpink
-    "%F{118}" # Limegreen
+    "%F{cyan}"
+    "%F{yellow}"
+    "%F{147}" # Purple, 147
+    "%F{green}" # Limegreen
   )
 else
   _prompt_izzy_colors=(
     "%F{cyan}"
     "%F{yellow}"
     "%F{magenta}"
-    "%F{red}"
     "%F{green}"
   )
 fi
@@ -37,9 +35,9 @@ fi
 #   %R - repository path
 #   %S - path in the repository
 local usual_format="(${_prompt_izzy_colors[1]}%b%f)"
-local action_format="(${_prompt_izzy_colors[5]}%a%f)"
+local action_format="(${_prompt_izzy_colors[4]}%a%f)"
 # local unstaged_format="${_prompt_izzy_colors[2]}●unstage%f"
-# local staged_format="${_prompt_izzy_colors[5]}●stage%f"
+# local staged_format="${_prompt_izzy_colors[4]}●stage%f"
 
 # Set vcs_info parameters.
 zstyle ':vcs_info:*' enable git
@@ -51,7 +49,7 @@ zstyle ':vcs_info:*:prompt:*' actionformats "${usual_format}${action_format}"
 zstyle ':vcs_info:*:prompt:*' formats "${usual_format}"
 zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 
-PROMPT="${_prompt_izzy_colors[3]}%n%f at ${_prompt_izzy_colors[2]}%m%f in ${_prompt_izzy_colors[5]}%~%f "'${VIRTUAL_ENV+🌀 }${vcs_info_msg_0_}'"
+PROMPT="${_prompt_izzy_colors[3]}%n%f at ${_prompt_izzy_colors[2]}%m%f in ${_prompt_izzy_colors[4]}%~%f "'${VIRTUAL_ENV+🌀 }${vcs_info_msg_0_}'"
 $ "
-RPROMPT=''
+RPROMPT='%(?. %?.)'
 # vim: ft=zsh
